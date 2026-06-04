@@ -126,14 +126,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logging.debug(f"Settings changed successfully.")
 
     def browse_data_file(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(self, "Select the Data File.", filter="Spreadsheet File (*.xlsx *.csv)")
+        path, _ = QFileDialog.getOpenFileName(self, "Select the Data File.", filter="Spreadsheet File (*.xlsx *.ods *.csv)")
         if not path:
             return
         
         self.lineedit_data_file.setText(path)
         self.combobox_sheet_names.clear()
         try:
-            if path.endswith(".xlsx"):
+            if path.endswith(".xlsx") or path.endswith(".ods"):
                 sheet_names = pd.ExcelFile(path).sheet_names
                 self.combobox_sheet_names.addItems(sheet_names)
                 dataframe = pd.read_excel(path, sheet_names[0])
@@ -208,7 +208,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.warning(self, "Empty Field", "No Data File is selected")
             return None
         try:
-            if path.endswith(".xlsx"):
+            if path.endswith(".xlsx") or path.endswith(".ods"):
                 sheet_name = self.combobox_sheet_names.currentText()
                 data_frame = pd.read_excel(path, sheet_name)
             else:

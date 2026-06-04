@@ -91,7 +91,7 @@
              <item>
               <widget class="QLabel" name="label">
                <property name="text">
-                <string>Select the Excel Data File:</string>
+                <string>Select the spreadsheet:</string>
                </property>
               </widget>
              </item>
@@ -131,7 +131,7 @@
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Browse Excel Data File</string>
+                  <string>Browse spreadsheet</string>
                  </property>
                  <property name="text">
                   <string>...</string>
