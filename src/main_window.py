@@ -220,6 +220,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Get email column name
         email_column_name = self.combobox_email_column.currentText()
 
+        # Filter out rows where the email field is empty
+        data_frame = data_frame[data_frame[email_column_name].notna() & (data_frame[email_column_name].astype(str).str.strip() != "")]
+
         # Get attachment folder and attachment column name
         if self.groupbox_attachments.isChecked():
             attachment_column_name = self.combobox_attachment_column.currentText()

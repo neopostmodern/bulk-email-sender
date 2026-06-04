@@ -160,7 +160,7 @@ class EmailSender:
             server = self._login()
                 
             # Iterate over the dataframe
-            for index, row in email_data["data_frame"].iterrows():
+            for count, (_, row) in enumerate(email_data["data_frame"].iterrows(), start=1):
                 if not self._is_running:
                     return
 
@@ -178,8 +178,8 @@ class EmailSender:
                 server.sendmail(from_addr, to_addrs, message.as_string())
 
                 # Emit the progress and log signals
-                self.signals.progress.emit(index + 1)
-                self.signals.log.emit(f"Email #{index + 1} successfully sent to recipient: {recipient_email}")
+                self.signals.progress.emit(count)
+                self.signals.log.emit(f"Email #{count} successfully sent to recipient: {recipient_email}")
 
         finally:
             self._is_running = False
